@@ -4,8 +4,8 @@
 
 These are the https://www.jetbrains.com/help/idea/using-live-templates.html[IntelliJ IDEA Live Templates] that I've used in many demos and screencasts over the years.
 
-`vinmaster_idea-settings.jar` were created by using IntelliJ's https://www.jetbrains.com/help/idea/sharing-live-templates.html[sharing live templates] feature.
-You can import "VinMaster's Shortcuts" using the following steps:
+`vinmaster_intellij-idea_live-templates-settings.zip` were created by using IntelliJ's https://www.jetbrains.com/help/idea/sharing-live-templates.html[sharing live templates] feature.
+You can import "VinMaster's Live Templates Shortcuts" using the following steps:
 
 1. **File | Manage IDE Settings | Export Settings**.
 2. Specify the path to the JAR file with the exported live template configuration(f.e. `vinmaster_idea-settings.jar`).

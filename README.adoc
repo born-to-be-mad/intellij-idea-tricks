@@ -1,0 +1,201 @@
+# Great idea tricks to improve your productivity
+
+= IntelliJ IDEA Live Templates from Dzmitry Marudau [aka VinMaster]
+
+These are the https://www.jetbrains.com/help/idea/using-live-templates.html[IntelliJ IDEA Live Templates] that I've used in many demos and screencasts over the years.
+
+`vinmaster_idea-settings.jar` were created by using IntelliJ's https://www.jetbrains.com/help/idea/sharing-live-templates.html[sharing live templates] feature.
+You can import "VinMaster's Shortcuts" using the following steps:
+
+1. **File | Manage IDE Settings | Export Settings**.
+2. Specify the path to the JAR file with the exported live template configuration(f.e. `vinmaster_idea-settings.jar`).
+3. In the **Import Settings** dialog box, select the **Live templates** check box and click **OK**.
+4. After restarting IntelliJ IDEA, you will see the imported live templates on the  **Editor | Live Templates** page of the **Settings | Preferences Dialog**.
+
+https://www.jetbrains.com/idea/download/[Download IntelliJ IDEA] today! It's a spectacular IDEA for Java, Kotlin, TypeScript, JavaScript, S/CSS, and HTML.
+
+If you'd rather not import _all_ of my templates, you can clone this project and open it in IntelliJ (with the Asciidoctor plugin installed). You should be able to edit this file and add the shortcuts below as live templates (**Tools** > **Save as Live Template**).
+Make sure to set the file type to match the language.
+
+== Spring Boot
+
+**boot-entity**
+[source,java]
+----
+@javax.persistence.Entity
+class $entity$ {
+
+    @javax.persistence.Id
+    @javax.persistence.GeneratedValue
+    private java.lang.Long id;
+    private java.lang.String name;
+
+    public $entity$() {}
+
+    public $entity$(String name) {
+        this.name = name;
+    }
+
+    public java.lang.Long getId() {
+        return id;
+    }
+
+    public void setId(java.lang.Long id) {
+        this.id = id;
+    }
+
+    public java.lang.String getName() {
+        return name;
+    }
+
+    public void setName(java.lang.String name) {
+        this.name = name;
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "$entity${" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+----
+
+**boot-entity-lombok**
+[source,java]
+----
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@javax.persistence.Entity
+class $name$ {
+
+    public $name$(java.lang.String name) {
+        this.name = name;
+    }
+
+    @javax.persistence.Id
+    @javax.persistence.GeneratedValue
+    private java.lang.Long id;
+
+    private java.lang.String name;
+}
+----
+
+**boot-runner**
+[source,java]
+----
+@org.springframework.stereotype.Component
+class $entity$CommandLineRunner implements org.springframework.boot.CommandLineRunner {
+
+    private final $entity$Repository repository;
+
+    public $entity$CommandLineRunner($entity$Repository repository) {
+        this.repository = repository;
+    }
+
+    @java.lang.Override
+    public void run(java.lang.String... strings) throws java.lang.Exception {
+        repository.findAll().forEach(System.out::println);
+    }
+}
+----
+
+**boot-repository**
+[source,java]
+----
+interface $entity$Repository extends JpaRepository<$entity$, java.lang.Long> {}
+----
+
+**boot-controller**
+[source,java]
+----
+import java.util.ArrayList;
+
+@org.springframework.web.bind.annotation.RestController
+class $entity$Controller {
+
+    private $entity$Service service;
+
+    public $entity$Controller($entity$Repository repository) {
+        this.repository = repository;
+    }
+
+    @org.springframework.web.bind.annotation.GetMapping("/$uriMapping$")
+    java.util.Collection<$entity$> list() {
+        return new ArrayList<>();
+    }
+}
+----
+
+**boot-service**
+[source,java]
+----
+@org.springframework.web.bind.annotation.RestController
+class $entity$Service {
+
+    private $entity$Repository repository;
+
+    public $entity$Service($entity$Repository repository) {
+        this.repository = repository;
+    }
+
+    java.util.Collection<$entity$> list() {
+        return repository.findAll();
+    }
+}
+----
+
+== Utility
+
+**TM - Time Measure**
+[source,java]
+----
+long time = System.nanoTime();
+try {
+    $SELECTION$
+} finally {
+    time = System.nanoTime() - time;
+    System.out.printf("execution time = %dms%n", (time / 1_000_000));
+}
+----
+
+**test - Test method**
+[source,java]
+----
+@Test
+public void should_assert_a_behaviour() {
+    // given:
+    // Setup the system under test
+
+    // when:
+    // Execute the system under test
+
+    // then:
+    // Assert that the expected change has occurred
+}
+----
+
+**logv - Logs a value to LOGGER.info**
+[source,java]
+----
+$LOGGER$.debug("$EXPR_COPY$ = {}", $EXPR$);
+----
+
+**logger - Log4j Logger**
+[source,java]
+----
+private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger($CLASS$.class);
+----
+
+**region - Region comment for better navigation**
+[source,java]
+----
+<!--region $DESCRIPTION$-->
+$SELECTION$
+<!--endregion-->
+----
+
+== Contributing
+Feel free to contribute and send a pull request!

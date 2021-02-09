@@ -116,7 +116,7 @@ import java.util.ArrayList;
 @org.springframework.web.bind.annotation.RestController
 class $entity$Controller {
 
-    private $entity$Service service;
+    private final $entity$Service service;
 
     public $entity$Controller($entity$Repository repository) {
         this.repository = repository;
@@ -132,10 +132,9 @@ class $entity$Controller {
 **boot-service**
 [source,java]
 ----
-@org.springframework.web.bind.annotation.RestController
 class $entity$Service {
 
-    private $entity$Repository repository;
+    private final $entity$Repository repository;
 
     public $entity$Service($entity$Repository repository) {
         this.repository = repository;

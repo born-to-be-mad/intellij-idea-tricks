@@ -1,6 +1,11 @@
-# Great idea tricks to improve your productivity
+= Great idea tricks to improve your productivity
+Dzmitry Marudau <vinmaster@tut.by>
+1.0, December 14, 2021: Live templates
+:toc:
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
 
-= IntelliJ IDEA Live Templates from Dzmitry Marudau [aka VinMaster]
+== IntelliJ IDEA Live Templates from Dzmitry Marudau [aka VinMaster]
 
 These are the https://www.jetbrains.com/help/idea/using-live-templates.html[IntelliJ IDEA Live Templates] that I've used in many demos and screencasts over the years.
 
@@ -9,7 +14,7 @@ You can import "VinMaster's Live Templates Shortcuts" using the following steps:
 
 1. **File | Manage IDE Settings | Export Settings**.
 2. Specify the path to the JAR file with the exported live template configuration(f.e. `vinmaster_idea-settings.jar`).
-3. In the **Import Settings** dialog box, select the **Live templates** check box and click **OK**.
+3. In the **File | Manage IDE Settings | Import Settings** dialog box, select the **Live templates** check box and click **OK**.
 4. After restarting IntelliJ IDEA, you will see the imported live templates on the  **Editor | Live Templates** page of the **Settings | Preferences Dialog**.
 
 https://www.jetbrains.com/idea/download/[Download IntelliJ IDEA] today! It's a spectacular IDEA for Java, Kotlin, TypeScript, JavaScript, S/CSS, and HTML.
@@ -111,8 +116,6 @@ interface $entity$Repository extends JpaRepository<$entity$, java.lang.Long> {}
 **boot-controller**
 [source,java]
 ----
-import java.util.ArrayList;
-
 @org.springframework.web.bind.annotation.RestController
 class $entity$Controller {
 
@@ -124,7 +127,7 @@ class $entity$Controller {
 
     @org.springframework.web.bind.annotation.GetMapping("/$uriMapping$")
     java.util.Collection<$entity$> list() {
-        return new ArrayList<>();
+        return new java.util.ArrayList<>();
     }
 }
 ----
@@ -146,9 +149,36 @@ class $entity$Service {
 }
 ----
 
+**mockMvcGET - Sample MockMvc GET**
+[source,java]
+----
+  org.springframework.test.web.servlet.MvcResult result = this.mockMvc
+  .perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get($url$)
+  .header(org.springframework.http.HttpHeaders.ACCEPT, org.springframework.http.MediaType.APPLICATION_JSON))
+  .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().is(200))
+  .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().contentType(org.springframework.http.MediaType.APPLICATION_JSON))
+  .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.size()", org.hamcrest.Matchers.is(0)))
+  .andDo(org.springframework.test.web.servlet.result.MockMvcResultHandlers.print())
+  .andReturn();
+----
+
+**mockMvcPost - Sample MockMvc POST**
+[source,java]
+----
+this.mockMvc
+  .perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post($url$)
+    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+    .content("""
+       {
+       }
+      """)
+  )
+  .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isCreated());
+----
+
 == Utility
 
-**TM - Time Measure**
+**timeMeasure - Time Measure**
 [source,java]
 ----
 long time = System.nanoTime();
@@ -160,11 +190,11 @@ try {
 }
 ----
 
-**test - Test method**
+**testMethod - Test method**
 [source,java]
 ----
 @Test
-public void should_assert_a_behaviour() {
+public void testShouldAssertBehaviour() {
     // given:
     // Setup the system under test
 
@@ -173,6 +203,7 @@ public void should_assert_a_behaviour() {
 
     // then:
     // Assert that the expected change has occurred
+    org.assertj.core.api.Assertions.assertThat("").isEqualTo("");
 }
 ----
 
